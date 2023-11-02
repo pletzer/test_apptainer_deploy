@@ -18,13 +18,16 @@ jobs:
         run: |
           echo "Free space"
           df -h
+          sudo apt update -y
+          sudo apt install -y wget
           wget https://github.com/apptainer/apptainer/releases/download/v1.2.4/apptainer_1.2.4_amd64.deb
-          sudo apt-get install -y ./apptainer_1.2.4_amd64.deb
+          sudo apt install -y ./apptainer_1.2.4_amd64.deb
+
       - uses: actions/checkout@v3
 
       - name: Build Container
         run: |
-          apptainer build pypack.sif pypack.def
+          sudo apptainer build pypack.sif pypack.def
 
       - name: Login and Deploy Container
         run: |
