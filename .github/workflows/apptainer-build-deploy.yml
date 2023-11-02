@@ -3,7 +3,6 @@ name: Apptainer Build Deploy
 on:
   pull_request:
   push:
-    branches: master
 
 jobs:
   build-test-container:
