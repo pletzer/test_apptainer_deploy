@@ -13,8 +13,15 @@ details the steps to build and deply the container when ever changes in this rep
 ## How to download the container 
 
 ```bash
-apptainer pull oras://ghcr.io/pletzer/test_apptainer_deploy:latest
+apptainer pull pypack.sif oras://ghcr.io/pletzer/test_apptainer_deploy_pypack:latest
 ```
 
+## Testing the container
 
+```bash
+apptainer shell pypack.sif
+Apptainer> python3 --version 
+Python 3.8.10
+Apptainer> python3 -c "import numpy"
+```
 
