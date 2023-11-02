@@ -24,7 +24,7 @@ jobs:
 
       - name: Build Container
         run: |
-           singularity build container.sif Apptainer
+                singularity build pypack.sif pypack.def
 
       - name: Login and Deploy Container
         run: |
