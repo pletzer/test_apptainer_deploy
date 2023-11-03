@@ -34,10 +34,12 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Build Container
+        working-directory: ./conf
         run: |
           sudo apptainer build pypack.sif pypack.def
 
       - name: Login and deploy
+        working-directory: ./conf
         run: |
           echo ${{ secrets.GITHUB_TOKEN }} | apptainer remote login -u ${{ secrets.GHCR_USERNAME }} --password-stdin oras://ghcr.io
           apptainer push pypack.sif oras://ghcr.io/${GITHUB_REPOSITORY}_pypack:
