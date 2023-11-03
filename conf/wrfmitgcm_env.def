@@ -89,3 +89,64 @@ From: intel/oneapi-hpckit:devel-ubuntu22.04
     ls $WRF_DEPS_DIR/include
     ls $WRF_DEPS_DIR/bin
 
+    # netcdf-c
+    wget https://downloads.unidata.ucar.edu/netcdf-c/${NETCDF_C_VERSION}/netcdf-c-${NETCDF_C_VERSION}.tar.gz
+    tar xf netcdf-c-${NETCDF_C_VERSION}.tar.gz
+    cd netcdf-c-${NETCDF_C_VERSION}
+    mkdir build
+    cd build
+    CPPFLAGS="-I${WRF_DEPS_DIR}/include" \
+     LDFLAGS="-L${WRF_DEPS_DIR}/lib -lhdf5 -lhdf5_hl" \
+     CC=$MPICC ../configure --prefix=$WRF_DEPS_DIR 
+    make -j 4
+    make install
+    cd ../..
+    rm -rf netcdf-c-${NETCDF_C_VERSION}
+    ls $WRF_DEPS_DIR/lib
+    ls $WRF_DEPS_DIR/include
+    ls $WRF_DEPS_DIR/bin
+
+    # netcdf-fortran
+    wget https://downloads.unidata.ucar.edu/netcdf-fortran/${NETCDF_FORTRAN_VERSION}/netcdf-fortran-${NETCDF_FORTRAN_VERSION}.tar.gz
+    tar xf netcdf-fortran-${NETCDF_FORTRAN_VERSION}.tar.gz
+    cd netcdf-fortran-${NETCDF_FORTRAN_VERSION}
+    mkdir build
+    cd build
+    CPPFLAGS="$(${WRF_DEPS_DIR}/bin/nc-config --cflags)" LDFLAGS="$(${WRF_DEPS_DIR}/bin/nc-config --libs)" \
+    ../configure --prefix=$WRF_DEPS_DIR
+    make
+    make install
+    cd ../..
+    rm -rf netcdf-fortran-${NETCDF_FORTRAN_VERSION}
+
+    # netcdf-c++
+    cd $WRF_DEPS_DIR
+    wget https://downloads.unidata.ucar.edu/netcdf-cxx/${NETCDF_CXX_VERSION}/netcdf-cxx4-${NETCDF_CXX_VERSION}.tar.gz
+    tar xf netcdf-cxx4-${NETCDF_CXX_VERSION}.tar.gz
+    cd netcdf-cxx4-${NETCDF_CXX_VERSION}
+    mkdir build
+    cd build
+    CC=$CC CXX=$CXX CPPFLAGS="$(${WRF_DEPS_DIR}/bin/nc-config --cflags)" LDFLAGS="$(${WRF_DEPS_DIR}/bin/nc-config --libs)" \
+    ../configure --prefix=$WRF_DEPS_DIR
+    make
+    make install
+    cd ../..
+    rm -rf netcdf-cxx4-${NETCDF_CXX_VERSION}.tar.gz
+    ls $WRF_DEPS_DIR/lib
+    ls $WRF_DEPS_DIR/include
+    ls $WRF_DEPS_DIR/bin
+
+    # pnetcdf
+    wget https://parallel-netcdf.github.io/Release/pnetcdf-${PNETCDF_VERSION}.tar.gz
+    tar xf pnetcdf-${PNETCDF_VERSION}.tar.gz
+    cd pnetcdf-${PNETCDF_VERSION}
+    mkdir build
+    cd build
+    ../configure --prefix=$WRF_DEPS_DIR --with-netcdf4=$WRF_DEPS_DIR
+    make
+    make install
+    cd ../..
+    rm -rf pnetcdf-${PNETCDF_VERSION}.tar.gz
+    ls $WRF_DEPS_DIR/lib
+    ls $WRF_DEPS_DIR/include
+    ls $WRF_DEPS_DIR/bin
