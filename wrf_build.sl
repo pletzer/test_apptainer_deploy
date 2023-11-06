@@ -16,4 +16,4 @@ export APPTAINER_TMPDIR="/nesi/nobackup//pletzera/apptainer_tmpdir"
 mkdir -p /nesi/nobackup//pletzera/apptainer_cache /nesi/nobackup//pletzera/apptainer_tmpdir
 setfacl -b /nesi/nobackup//pletzera/apptainer_tmpdir
 # build the container
-apptainer build --force --fakeroot wrf.sif wrf.def
+apptainer build --force --fakeroot wrf.sif conf/wrf.def
