@@ -1,5 +1,5 @@
 Bootstrap: oras
-From: oras://test_apptainer_deploy_esmfenv:latest
+From: ghcr.io/pletzer/test_apptainer_deploy_esmfenv:latest
 
 %post
     WRF_VERSION="4.1.1"
